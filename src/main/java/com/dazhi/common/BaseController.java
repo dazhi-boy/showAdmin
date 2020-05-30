@@ -52,8 +52,8 @@ public class BaseController<T> {
 	}
 
 	@ApiOperation(value = "获取列表")
-	@GetMapping("/{id}/list")
-	public Result<IPage<T>> list(@PathVariable("id") Long id) {
+	@GetMapping
+	public Result<IPage<T>> list() {
 		IPage<T> page = new Page<>();
 		IPage<T> tPage = iService.page(page);
 		// List<User> list = userService.list();
