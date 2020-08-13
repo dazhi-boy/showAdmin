@@ -87,7 +87,7 @@
 	    </dependency>
 		
 	</dependencies>
-
+<!--
 	<build>
 		<plugins>
 			<plugin>
@@ -96,5 +96,30 @@
 			</plugin>
 		</plugins>
 	</build>
-
+-->
+	<!-- maven 打包成 Docker 镜像   -->
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<configuration>
+					<imageName>${docker.image.prefix}</imageName>
+					<dockerDirectory>src/main/docker</dockerDirectory>
+					<resources>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
+				</configuration>
+			</plugin>
+ 
+			<!-- maven打包跳过测试  -->
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
+			</plugin>
 </project>
